@@ -14,7 +14,7 @@ linters:
   # 아래 린터들만 선택적으로 활성화
   enable:
     - goimports     # 임포트 구문 자동 정리
-    - deadcode      # 사용되지 않는 코드 검출
+    - unused        # 사용되지 않는 코드 검출
     - errcheck      # 에러 처리 누락 검사
     - gocognit      # 인지적 복잡도 검사
     - gocyclo       # 순환복잡도 검사
