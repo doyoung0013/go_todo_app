@@ -1,0 +1,27 @@
+linters-settings:
+  govet:
+    # 변수 섀도잉 검사 비활성화
+    check-shadowing: false
+  gocyclo:
+    min-complexity: 30
+  misspell:
+    locale: US
+
+# 린터 활성화/비활성화 설정
+linters:
+  # 기본적으로 모든 린터 비활성화
+  disable-all: true
+  # 아래 린터들만 선택적으로 활성화
+  enable:
+    - goimports     # 임포트 구문 자동 정리
+    - deadcode      # 사용되지 않는 코드 검출
+    - errcheck      # 에러 처리 누락 검사
+    - gocognit      # 인지적 복잡도 검사
+    - gocyclo       # 순환복잡도 검사
+    - gofmt         # 코드 포맷팅 검사
+    - govet         # Go 컴파일러의 정적 분석 도구
+    - misspell      # 영어 맞춤법 검사
+    - staticcheck   # Go 코드 정적 분석
+    - whitespace    # 공백 문자 관련 검사
+
+    
