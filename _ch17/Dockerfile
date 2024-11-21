@@ -45,5 +45,9 @@ WORKDIR /app
 #air 도구 설치 (코드 변경 시 자동 재빌드 지원)
 RUN go install github.com/air-verse/air@latest
 
+# chi 패키지 및 기타 필요한 의존성 설치
+RUN go get github.com/go-chi/chi/v5
+RUN go mod download
+
 #개발 서버 자동 시작
 CMD ["air"]
