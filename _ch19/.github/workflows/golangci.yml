@@ -1,0 +1,38 @@
+name: golang-ci
+
+# 워크플로우 트리거 조건 설정
+on:
+ # Pull Request 중에서
+ pull_request:
+   # 특정 파일이 변경됐을 때만 워크플로우 실행
+   paths:
+     - "**.go"                          # 모든 Go 파일이 변경됐을 때 (**는 모든 하위 디렉토리를 의미)
+     - .github/workflows/golangci.yml   # 워크플로우 파일 자체가 변경됐을 때
+
+jobs:
+ golangci-lint:
+   name: golangci-lint
+   runs-on: ubuntu-latest
+
+   steps:
+     # 1단계: 코드 체크아웃
+     - name: Check out code into the Go module directory
+       uses: actions/checkout@v3        # GitHub 리포지토리 코드를 가져오는 액션
+
+     # 2단계: golangci-lint 실행
+     - name: golangci-lint
+       uses: reviewdog/action-golangci-lint@v2    # reviewdog의 golangci-lint 액션 사용
+       with:
+         # GitHub Actions에서 자동으로 제공하는 토큰
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         
+         # golangci-lint 실행 옵션
+         golangci_lint_flags: "--config=./.golangci.yml ./..."   
+         # --config: 설정 파일 위치 지정
+         # ./...: 현재 디렉토리와 모든 하위 디렉토리 검사
+
+         # lint에서 에러가 발생하면 워크플로우를 실패 처리
+         fail_on_error: true
+         
+         # 리뷰 결과를 GitHub PR 코멘트로 남기는 형식 지정
+         reporter: "github-pr-review"   # PR 코드 라인에 직접 코멘트를 남김
